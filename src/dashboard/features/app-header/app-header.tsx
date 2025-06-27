@@ -7,6 +7,9 @@ import { MainNavItem } from "./main-nav-item";
 import { ThemeToggle } from "./theme-toggle";
 import { getFeatures } from "@/utils/helpers";
 
+import { LogoutButton } from "@/features/auth/logout-button";
+
+
 const CompanyLogo = () => {
   return (
     <MainNavItem path="/">
@@ -46,6 +49,7 @@ export const AppHeader = () => {
       <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6 flex-1">
         <CompanyLogo />
         <MenuItems />
+        <LogoutButton />
       </nav>
 
       <Sheet>

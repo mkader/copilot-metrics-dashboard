@@ -16,7 +16,7 @@ interface FeaturesConfig {
 export const ensureGitHubEnvConfig = (): ServerActionResponse<GitHubConfig> => {
   const organization = process.env.GITHUB_ORGANIZATION;
   const enterprise = process.env.GITHUB_ENTERPRISE;
-  const token = process.env.GITHUB_TOKEN;
+  const token = process.env.MY_GITHUB_TOKEN;
   const version = process.env.GITHUB_API_VERSION;
   let scope = process.env.GITHUB_API_SCOPE;
 

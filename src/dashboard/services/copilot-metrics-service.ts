@@ -61,6 +61,7 @@ const fetchCopilotMetrics = async (
   version: string,
   entityName: string
 ): Promise<ServerActionResponse<CopilotUsageOutput[]>> => {
+  console.log(url + " " + token);
   const response = await fetch(url, {
     cache: "no-store",
     headers: {
