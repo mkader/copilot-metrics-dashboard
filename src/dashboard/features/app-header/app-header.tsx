@@ -1,11 +1,23 @@
+"use client";
+
 import { LayoutDashboard, Menu, Users } from "lucide-react";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import Image from "next/image";
+import { getFeatures } from "@/utils/helpers";
+import { LogoutButton } from "@/features/auth/logout-button";
 import { MainNavItem } from "./main-nav-item";
 import { ThemeToggle } from "./theme-toggle";
-import { getFeatures } from "@/utils/helpers";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const CompanyLogo = () => {
   return (
@@ -17,7 +29,6 @@ const CompanyLogo = () => {
         alt="GitHub Copilot Dashboard"
       />
     </MainNavItem>
-
   );
 };
 
@@ -40,10 +51,54 @@ const MenuItems = () => {
   );
 };
 
+const UserProfile = () => {
+  const { data: session } = useSession();
+
+  if (!session?.user) return null;
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="secondary" size="icon" className="rounded-full">
+          {session.user.image ? (
+            <Image
+              src={session.user.image}
+              width={32}
+              height={32}
+              alt={session.user.name ?? "User avatar"}
+              className="rounded-full"
+            />
+          ) : (
+            <span>{session.user.name?.charAt(0).toUpperCase()}</span>
+          )}
+          <span className="sr-only">Toggle user menu</span>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuLabel>
+          <div className="flex flex-col space-y-1">
+            <p className="text-sm font-medium leading-none">
+              {session.user.name}
+            </p>
+            <p className="text-xs leading-none text-muted-foreground">
+              {session.user.email}
+            </p>
+          </div>
+        </DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+           <LogoutButton />
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
+
 export const AppHeader = () => {
   return (
-    <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 justify-between sm:justify-normal">
-      <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6 flex-1">
+    <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 justify-between">
+      <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
         <CompanyLogo />
         <MenuItems />
       </nav>
@@ -62,11 +117,10 @@ export const AppHeader = () => {
           </nav>
         </SheetContent>
       </Sheet>
-      <nav className="md:hidden">
-        <CompanyLogo />
-      </nav>
+
       <div className="flex items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
         <ThemeToggle />
+        <UserProfile />
       </div>
     </header>
   );

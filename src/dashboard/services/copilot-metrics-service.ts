@@ -116,6 +116,10 @@ export const getCopilotMetricsFromApi = async (
       return fetchCopilotMetrics(url, token, version, filter.enterprise);
     } else {
       const url = `https://api.github.com/orgs/${filter.organization}/copilot/metrics${queryString}`;
+      console.log(url);
+      console.log(token);
+      console.log(version);
+      console.log(filter.organization);
       return fetchCopilotMetrics(url, token, version, filter.organization);
     }
   } catch (e) {

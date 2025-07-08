@@ -18,7 +18,7 @@ host.Run();
 void ConfigureClient(HttpClient httpClient)
 {
     var apiVersion = Environment.GetEnvironmentVariable("GITHUB_API_VERSION");
-    var token = Environment.GetEnvironmentVariable("GITHUB_TOKEN");
+    var token = Environment.GetEnvironmentVariable("MY_GITHUB_TOKEN");
     var gitHubApiBaseUrl = Environment.GetEnvironmentVariable("GITHUB_API_BASEURL") ?? "https://api.github.com/";
 
     httpClient.BaseAddress = new Uri(gitHubApiBaseUrl);

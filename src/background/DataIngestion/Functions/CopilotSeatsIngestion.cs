@@ -23,7 +23,7 @@ public class CopilotSeatsIngestion
     {
         _logger.LogInformation($"GitHubCopilotSeatsIngestion timer trigger function executed at: {DateTime.Now}");
 
-        var token = Environment.GetEnvironmentVariable("GITHUB_TOKEN")!;
+        var token = Environment.GetEnvironmentVariable("MY_GITHUB_TOKEN")!;
         var scope = Environment.GetEnvironmentVariable("GITHUB_API_SCOPE")!;
         Boolean.TryParse(Environment.GetEnvironmentVariable("ENABLE_SEATS_INGESTION") ?? "true", out var seatsIngestionEnabled);
         if (!seatsIngestionEnabled)

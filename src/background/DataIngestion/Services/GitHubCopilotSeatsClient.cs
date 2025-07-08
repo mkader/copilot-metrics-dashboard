@@ -22,7 +22,7 @@ namespace Microsoft.CopilotDashboard.DataIngestion.Services
 
         public async Task<CopilotSeats> GetEnterpriseAssignedSeatsAsync(string enterprise)
         {
-            var token = Environment.GetEnvironmentVariable("GITHUB_TOKEN")!;
+            var token = Environment.GetEnvironmentVariable("MY_GITHUB_TOKEN")!;
             return await GetEnterpriseAssignedSeatsAsync(enterprise, token);
         }
 
@@ -69,7 +69,7 @@ namespace Microsoft.CopilotDashboard.DataIngestion.Services
 
         public async Task<CopilotSeats> GetOrganizationAssignedSeatsAsync(string organization)
         {
-            var token = Environment.GetEnvironmentVariable("GITHUB_TOKEN")!;
+            var token = Environment.GetEnvironmentVariable("MY_GITHUB_TOKEN")!;
             return await GetOrganizationAssignedSeatsAsync(organization, token);
         }
 
@@ -209,7 +209,7 @@ namespace Microsoft.CopilotDashboard.DataIngestion.Services
         public async  Task<List<string>> GetAllTeamsAsync()
         {
             var scope = Environment.GetEnvironmentVariable("GITHUB_SCOPE");
-            var token = Environment.GetEnvironmentVariable("GITHUB_TOKEN")!;
+            var token = Environment.GetEnvironmentVariable("MY_GITHUB_TOKEN")!;
             if (string.IsNullOrWhiteSpace(scope) || scope == "enterprise")
             {
                 var enterprise = Environment.GetEnvironmentVariable("GITHUB_ENTERPRISE")!;
