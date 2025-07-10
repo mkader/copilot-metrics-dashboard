@@ -54,7 +54,7 @@ export const applyTimeFrameLabel = (
       total_chats:  (item.copilot_ide_chat.editors || []).reduce((acc, editor) => acc + (editor.models.reduce((modelAcc, model) => modelAcc + (model.total_chats || 0), 0)), 0),
       total_chat_insertion_events:  (item.copilot_ide_chat.editors || []).reduce((acc, editor) => acc + (editor.models.reduce((modelAcc, model) => modelAcc + (model.total_chat_insertion_events || 0), 0)), 0),
       total_chat_copy_events:  (item.copilot_ide_chat.editors || []).reduce((acc, editor) => acc + (editor.models.reduce((modelAcc, model) => modelAcc + (model.total_chat_copy_events || 0), 0)), 0),
-      day: item.date,
+      day: (new Date(item.date + 'T00:00:00')).toLocaleDateString("en-US", { month: "short", day: "numeric" }),
       breakdown: breakdowns,
       time_frame_week: weekIdentifier,
       time_frame_month: monthIdentifier,
